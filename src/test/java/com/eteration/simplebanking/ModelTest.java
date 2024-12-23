@@ -19,23 +19,23 @@ public class ModelTest {
 		Account account = new Account("Kerem Karaca", "17892");
 		assertTrue(account.getOwner().equals("Kerem Karaca"));
 		assertTrue(account.getAccountNumber().equals("17892"));
-		assertTrue(account.getBalance() == 0);
+		assertTrue(account.getBalance() == 0.00);
 	}
 
 	@Test
 	public void testDepositIntoBankAccount() {
 		Account account = new Account("Demet Demircan", "9834");
 		account.deposit(100);
-		assertTrue(account.getBalance() == 100);
+		assertTrue(account.getBalance() == 100.00);
 	}
 
 	@Test
 	public void testWithdrawFromBankAccount() throws InsufficientBalanceException {
 		Account account = new Account("Demet Demircan", "9834");
 		account.deposit(100);
-		assertTrue(account.getBalance() == 100);
+		assertTrue(account.getBalance() == 100.00);
 		account.withdraw(50);
-		assertTrue(account.getBalance() == 50);
+		assertTrue(account.getBalance() == 50.00);
 	}
 
 	@Test
@@ -55,17 +55,17 @@ public class ModelTest {
 		assertTrue(account.getTransactions().size() == 0);
 
 		// Deposit Transaction
-		DepositTransaction depositTrx = new DepositTransaction(100);
+		DepositTransaction depositTrx = new DepositTransaction(100.00);
 		assertTrue(depositTrx.getDate() != null);
 		account.post(depositTrx);
-		assertTrue(account.getBalance() == 100);
+		assertTrue(account.getBalance() == 100.00);
 		assertTrue(account.getTransactions().size() == 1);
 
 		// Withdrawal Transaction
-		WithdrawalTransaction withdrawalTrx = new WithdrawalTransaction(60);
+		WithdrawalTransaction withdrawalTrx = new WithdrawalTransaction(60.00);
 		assertTrue(withdrawalTrx.getDate() != null);
 		account.post(withdrawalTrx);
-		assertTrue(account.getBalance() == 40);
+		assertTrue(account.getBalance() == 40.00);
 		assertTrue(account.getTransactions().size() == 2);
 	}
 }

@@ -1,0 +1,130 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.18.xsd">
+
+    <changeSet id="create-account-table" author="ahmeteminkahraman">
+        <preConditions>
+            <not>
+                <tableExists schemaName="PUBLIC" tableName="ACCOUNT"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ACCOUNT">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true"
+                             primaryKeyName="ACCOUNT_pk"
+                             nullable="false"/>
+            </column>
+            <column name="OWNER" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_NUMBER" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="PHONE_NUMBER" type="varchar(10)">
+                <constraints nullable="true" unique="true"/>
+            </column>
+            <column name="PROVIDER" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="BALANCE" type="DOUBLE PRESICION">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT default 0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-withdrawal-transaction-table" author="ahmeteminkahraman">
+        <preConditions>
+            <not>
+                <tableExists schemaName="PUBLIC" tableName="withdrawal_transaction"/>
+            </not>
+        </preConditions>
+        <createTable tableName="withdrawal_transaction">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AMOUNT" type="DOUBLE PRESICION">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ACCOUNT_ID" type="BIGINT">
+                <constraints foreignKeyName="ACCOUNT_ID_FK" references="PUBLIC.ACCOUNT(ID)" nullable="false"/>
+            </column>
+            <column name="APPROVAL_CODE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRANSACTION_TYPE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-deposit-transaction-table" author="ahmeteminkahraman">
+        <preConditions>
+            <not>
+                <tableExists schemaName="PUBLIC" tableName="deposit_transaction"/>
+            </not>
+        </preConditions>
+        <createTable tableName="deposit_transaction">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AMOUNT" type="DOUBLE PRESICION">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ACCOUNT_ID" type="BIGINT">
+                <constraints foreignKeyName="ACCOUNT_ID_FK" references="PUBLIC.ACCOUNT(ID)" nullable="false"/>
+            </column>
+            <column name="APPROVAL_CODE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRANSACTION_TYPE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-phone-bill-transaction-table" author="ahmeteminkahraman">
+        <preConditions>
+            <not>
+                <tableExists schemaName="PUBLIC" tableName="phone_bill_transaction"/>
+            </not>
+        </preConditions>
+        <createTable tableName="phone_bill_transaction">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DATE" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AMOUNT" type="DOUBLE PRESICION">
+                <constraints nullable="true"/>
+            </column>
+            <column name="PROVIDER" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PHONE_NUMBER" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_ID" type="BIGINT">
+                <constraints foreignKeyName="ACCOUNT_ID_FK" references="PUBLIC.ACCOUNT(ID)" nullable="false"/>
+            </column>
+            <column name="APPROVAL_CODE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TRANSACTION_TYPE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
