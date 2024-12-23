@@ -84,7 +84,7 @@ public class AccountService implements AccountServiceInterface {
             transaction.setApprovalCode(UUID.randomUUID().toString());
             account.getTransactions().add(transaction);
             accountRepositoryInterface.save(account);
-            return new TransactionStatus("OK", transaction.getApprovalCode(), null, transaction.getAccount());;
+            return new TransactionStatus("OK", transaction.getApprovalCode(), null, transaction.getAccount());
 
         } catch (Exception e) {
             return new TransactionStatus("FAILED", null, e.getMessage(), null);
